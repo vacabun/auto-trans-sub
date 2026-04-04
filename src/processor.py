@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from src.config import (
+    ASR_BACKEND,
     GENERATE_TRANSLATION,
     MODEL_REPO,
     SKIP_TRANSLATION_IF_EXISTS,
@@ -30,6 +31,8 @@ def update_translation_index(source_file, paths, translated):
     source_key = str(source_file)
     index[source_key] = {
         "source_file": source_key,
+        "asr_backend": ASR_BACKEND,
+        "asr_model": MODEL_REPO,
         "japanese_subtitle_file": str(paths["ja_srt"]),
         "japanese_segments_file": str(paths["segments_json"]),
         "translated_subtitle_file": str(paths["translation_srt"]) if translated else "",
@@ -73,7 +76,7 @@ def process_file(source_file, file_no, file_total):
 
     segments_ja = load_existing_japanese_segments(paths)
     if segments_ja is None:
-        log(f"Loading MLX Whisper model: {MODEL_REPO}")
+        log(f"Loading ASR backend '{ASR_BACKEND}' with model: {MODEL_REPO}")
         log("Starting Japanese transcription...")
         result_ja = transcribe_audio(source_file)
         segments_ja = result_ja["segments"]

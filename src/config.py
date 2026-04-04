@@ -23,9 +23,13 @@ SUPPORTED_EXTENSIONS = {
 }
 
 # ===== 识别配置 =====
+ASR_BACKEND = os.getenv("ASR_BACKEND", "mlx")
 MODEL_REPO = os.getenv("WHISPER_MODEL_REPO", "mlx-community/whisper-large-v3-mlx")
 SOURCE_LANGUAGE = os.getenv("SOURCE_LANGUAGE", "ja")
 USE_FP16 = os.getenv("USE_FP16", "true").lower() in {"1", "true", "yes", "on"}
+FASTER_WHISPER_DEVICE = os.getenv("FASTER_WHISPER_DEVICE", "auto")
+FASTER_WHISPER_COMPUTE_TYPE = os.getenv("FASTER_WHISPER_COMPUTE_TYPE", "auto")
+FASTER_WHISPER_BEAM_SIZE = int(os.getenv("FASTER_WHISPER_BEAM_SIZE", "5"))
 
 # ===== 翻译配置 =====
 TARGET_LANGUAGE = os.getenv("TARGET_LANGUAGE", "zh-Hans")
